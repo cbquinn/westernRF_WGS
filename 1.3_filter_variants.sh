@@ -1,34 +1,3 @@
-
-
-
-Going to change the names of the vcf (from RF_ID to pop_ID).  Keep messing it up when I do it by hand, so code it
-```
-# in bash
-module load bcftools/1.14
-cd /group/ctbrowngrp2/cbquinn/fox4/1_vcfs/variant/n41/unfiltered/
-FILE=bcf_variant_unfiltered_42_autosome.bcf
-bcftools query -l $FILE > bcf_variant_unfiltered_42_autosome.names
-
-unset CONDA_EXE
-module load R/3.6.3
-R
-library(tidyverse)
-
-vcf.names <- read_tsv("bcf_variant_unfiltered_42_autosome.names", col_names="vcf.names")
-info <-read_tsv("/group/ctbrowngrp2/cbquinn/fox4/0_bams/samplelist.txt", col_names=c("RFID", "sampleID", "SID", "pop", "keep")) %>%
-mutate(RFID_SID=paste0(RFID, "_", SID))
-
-new.info <- left_join(vcf.names, info, by=c("vcf.names"="RFID_SID"))
-
-vcf.names.new <- new.info %>% select(sampleID)
-
-write_tsv(vcf.names.new, "/group/ctbrowngrp2/cbquinn/fox4/1_vcfs/variant/n41/newnames_41.txt", col_names=FALSE)
-
-write_tsv(new.info, "/group/ctbrowngrp2/cbquinn/fox4/1_vcfs/variant/n41/newinfo_41.txt", col_names=TRUE)
-```
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/filter_variant.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=filter
 #SBATCH --time 24:00:00
@@ -37,6 +6,10 @@ write_tsv(new.info, "/group/ctbrowngrp2/cbquinn/fox4/1_vcfs/variant/n41/newinfo_
 #SBATCH -A ctbrowngrp
 #SBATCH -o /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/filter_variant.out
 #SBATCH -e /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/filter_variant.err
+
+# tested 4 different sets of filters and examined PCAs and bcftools/ROH
+# opted to not use a maf because only one individual from AK and RUS, so distorts their heterozygosity and PCA/admixture relationships 
+# (as a consequence, many of the 16 mil SNPs are Eurasia vs. North America--an only N. Amer set would be more like 12 mil
 
 WORKDIR=/group/ctbrowngrp2/cbquinn/fox4
 cd $WORKDIR
@@ -53,16 +26,16 @@ module load bedtools2/2.30.0
 # max pooled depth filter of 1150 [sum(2*meanIndDp)]
 # min pooled depth filter of 191 [sum(meanIndDp/3)]
 # remove snps within 5 bp of indels
-# site QUAL score >100
-# at least 6 reads to support the minor allele (across indiv)
+# site QUAL score >100 (this is very conservative, to make up for no maf)
+# at least 6 reads to support the minor allele (across indivs)
 # remove sites with excess het (>80% indiv) to get rid of paralogs 
 # heterozygous genotypes to have at least 20% of the total reads supporting the minor allele and homozygous genotypes to have <10% of reads containing a different allele
 # biallelic, remove indels
+# <20% missigness
 
-# Filters to vary
+# Filters that vary (A, B, C, D)
 # min depth to call genotype = 3 or 5
 # allele count = 1 or 3 
-# for now all have 20% missigness
 
 
 #################
@@ -261,14 +234,12 @@ VARIANTS=$(bcftools index -n $i)
 echo -e "$SAMPLE\t$VARIANTS" >> nsites_filters_masked_genmap.txt
 done
 
-```
-
-filterID | filter | n_autosome | n_mask_map | n_mask_mapRP
---- | --- | --- | --- | ---
-A | ac1.dp3.mis20 | 16,922,841 | 16,654,053
-B | ac1.dp5.mis20 | 16,163,355 | 15,977,905
-C | ac3.dp3.mis20 | 12,620,284 | 12,415,459
-D | ac3.dp5.mis20 | 11,826,897 | 11,692,506
-
-the mappability filter alone removews about 200K snps
+# note: these are the final counts for the different filters 
+# filterID | filter | n_autosome | n_mask_map | n_mask_mapRP
+# --- | --- | --- | --- | ---
+# A | ac1.dp3.mis20 | 16,922,841 | 16,654,053
+# B | ac1.dp5.mis20 | 16,163,355 | 15,977,905
+# C | ac3.dp3.mis20 | 12,620,284 | 12,415,459
+# D | ac3.dp5.mis20 | 11,826,897 | 11,692,506
+# the mappability filter on its own removes about 200K snps
 
