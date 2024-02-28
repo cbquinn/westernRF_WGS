@@ -1,7 +1,3 @@
-Make mappability mask with [genmap](https://github.com/cpockrandt/genmap)
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/0.0_make_mappability_mask_gem.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=gem
 #SBATCH --nodes 1
@@ -12,6 +8,8 @@ Make mappability mask with [genmap](https://github.com/cpockrandt/genmap)
 #SBATCH -A ctbrowngrp
 #SBATCH -o /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/make_mappability_mask_gem.out
 #SBATCH -e /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/make_mappability_mask_gem.err
+
+# Make mappability mask with [genmap](https://github.com/cpockrandt/genmap)
 
 # make things fail on errors
 set -o nounset
@@ -60,4 +58,3 @@ bedtools complement \
 end=`date +%s`
 runtime=$((end-start))
 echo "RUNTIME: $runtime"
-```
