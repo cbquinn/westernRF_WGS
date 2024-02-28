@@ -1,24 +1,3 @@
-
-still running or suspended: 36,46,49,51
-rerun 46,49,51
-top lines of LIST
-/group/ctbrowngrp3/scratch/cbquinn/fox/fastqlist.txt
-```
-JOB	RUN	RFID	SID	BASENAME	LIB	PLATFORM
-1	run1	RF1	S11-0008	RF1_S11-0008_run1	lib1_SI	hiseq
-2	run1	RF2	S15-0575	RF2_S15-0575_run1	lib1_SI	hiseq
-3	run1	RF3	S13-3301	RF3_S13-3301_run1	lib1_SI	hiseq
-4	run1	RF4	S13-3312	RF4_S13-3312_run1	lib1_SI	hiseq
-5	run1	RF5	M01	RF5_M01_run1	lib1_SI	hiseq
-6	run1	RF6	F01	RF6_F01_run1	lib1_SI	hiseq
-7	run1	RF7	F03	RF7_F03_run1	lib1_SI	hiseq
-8	run1	RF8	F05	RF8_F05_run1	lib1_SI	hiseq
-...
-
-(had to rerun because I erased split fastqs and redid.. the err files for just the split are under split_%a.err)
-```
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/0_trim_and_split.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=trim
 #SBATCH --array=1-73%25
@@ -28,6 +7,11 @@ JOB	RUN	RFID	SID	BASENAME	LIB	PLATFORM
 #SBATCH -t 2-00:00:00
 #SBATCH -o /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/split_%a.out
 #SBATCH -e /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/split_%a.err
+
+### script uses a tab-delimited LIST file that  formatted like this:
+#JOB	RUN	RFID	SID	BASENAME	LIB	PLATFORM
+#1	run1	RF1	S11-0008	RF1_S11-0008_run1	lib1_SI	hiseq
+#2	run1	RF2	S15-0575	RF2_S15-0575_run1	lib1_SI	hiseq
 
 ### trim reads
 
@@ -69,5 +53,3 @@ end=`date +%s`
 runtime=$((end-start))
 echo "finished splitting:"
 echo $runtime
-```
-
