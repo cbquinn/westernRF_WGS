@@ -1,5 +1,3 @@
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/boot_psmc.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=split_psmcfa
 #SBATCH --array=1-100%30
@@ -39,5 +37,3 @@ TIMESPEND=$(($ENDTIME - $STARTTIME))
 timestamp=$(printf "%d:%02d:%02d" $hrs $min $sec)
 echo "Took $timestamp hours:minutes:seconds to complete..."
 done
-
-```
