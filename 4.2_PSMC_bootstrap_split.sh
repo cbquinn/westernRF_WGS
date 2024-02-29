@@ -1,5 +1,3 @@
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/split_psmcfa.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=split_psmcfa
 #SBATCH --nodes 1
@@ -31,5 +29,3 @@ done
 end=`date +%s`
 runtime=$((end-start))
 echo "finished splitting psmc.fa for ${SAMPLE} bootstrapping after ${runtime} seconds"
-```
-only takes a few seconds
