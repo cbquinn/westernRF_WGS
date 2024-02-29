@@ -1,9 +1,4 @@
 
-
-later run for 11,15,31  (WAC_S10-0583, ORC_S18-2068, ORC_S17-2543)
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/mlrho.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=mlrho
 #SBATCH --array=1-34
@@ -52,18 +47,3 @@ awk -f ~/bin/MlRho_2.9/Scripts/bam2pro.awk | \
 ~/bin/FormatPro_0.5/formatPro -c 5 -n ${SAMPLE}.c5
 # compute the genome-wide mutation rate
 /home/hennelly/bin/MlRho_2.9/mlRho -M 0 -n ${SAMPLE}.c5 > theta.${SAMPLE}.c5.txt
-
-```
-
-
-collate together
-```
-cd /group/ctbrowngrp2/cbquinn/fox4/2_heterozygosity/mlrho
-rm thetas.summary.tsv
-for i in $(ls *theta*)
-do
-SAMPLE=$(echo $i | cut -d '.' -f2)
-VALUES=$(cut -f3 $i | tail -n1 | tr '<' '\t')
-echo -e "${SAMPLE}\t${VALUES}" >> thetas.summary.tsv
-done
-```
