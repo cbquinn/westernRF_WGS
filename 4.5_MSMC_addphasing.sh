@@ -1,6 +1,3 @@
-
-/group/ctbrowngrp2/cbquinn/fox3/slurmscripts/msmc2_addphasing.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=MSMCinputPH
 #SBATCH --array=1-10
@@ -68,5 +65,3 @@ rm -r temp/${SAMPLE}_${CHR}
 rm temp/${SAMPLE}_${CHR}*
 
 done
-```
-sites not in phased could be due to filtering or phasing...
