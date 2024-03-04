@@ -1,26 +1,3 @@
-Get a bed, vcf, and gerp scores of the following
-```
-# Variant types
-# CDS: all coding sites
-# LOF: loss of function
-# MIS: all missense
-# DEL: deleterious missense
-# TOL: tolerated missense
-# SYN: synonymous
-```
-
-**Effect sort order**. When multiple effects are reported, SnpEff sorts the effects the following way:
-
--   Putative impact: Effects having higher putative impact are first.
--   Effect type: Effects assumed to be more deleterious effects first.
--   Canonical transcript before non-canonical.
--   Marker genomic coordinates (e.g. genes starting before first).
-
-
-using the [0] is the first effect,  whereas [*] filters for any effect
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/extract_snpeff.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=snpeff
 #SBATCH --time 24:00:00
@@ -87,21 +64,3 @@ bedtools intersect -header \
 bcftools view -O z -o ${i}.vcf.gz
 bcftools index ${i}.vcf.gz
 done
-```
-
-
-sites | category
---- | ---
-  111860 | CDS
-     711 | lof
-   42124 | missense
-   69025 | synonymous
-   15770 | missense_deleterious
-   26123 | missense_tolerated
-
-
-Genes
-
-synonymous |  missense | lof | missense_del
---- | ---| ---| ---
-14729 | 11826 | 637| 15319
