@@ -1,5 +1,3 @@
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/msmc2_boot_inputs.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=bootdata
 #SBATCH --nodes 1
@@ -28,5 +26,3 @@ cd $INDIR/boot
 
 # generates 200GB of sequence
 ~/bin/msmc-tools/multihetsep_bootstrap.py -n 20 --nr_chromosomes 24 bootstrap_number ${INPUTS}
-```
-only takes a few minutes
