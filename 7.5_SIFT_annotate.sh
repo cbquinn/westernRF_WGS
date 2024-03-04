@@ -1,29 +1,3 @@
-Full instructions here: https://sift.bii.a-star.edu.sg/sift4g/AnnotateVariants.html
-
-## Install
-
-```
-cd /group/ctbrowngrp2/cbquinn/fox4/5_load/sift/
-# download the java executer
-wget https://github.com/pauline-ng/SIFT4G_Annotator/raw/master/SIFT4G_Annotator.jar
-```
-
-To run
-```
-java -jar <_Path to SIFT4G_Annotator_> -c -i <_Path to input vcf file_> -d <_Path to SIFT4G database directory_> -r <_Path to your results folder_> -t
-```
-
-|   |   |
-|---|---|
-|**-c**|To run on command line|
-|**-i**|Path to your input variants file in VCF format|
-|**-d**|Path to SIFT database directory|
-|**-r**| Path to your output results folder|
-|**-t**|To extract annotations for multiple transcripts (Optional)|
-
-## Annotate
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/SIFT_annotate.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=SIFT
 #SBATCH --time 1-00:00:00
@@ -32,6 +6,8 @@ java -jar <_Path to SIFT4G_Annotator_> -c -i <_Path to input vcf file_> -d <_Pat
 #SBATCH -A ctbrowngrp
 #SBATCH -o /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/SIFT_annotate.out
 #SBATCH -e /group/ctbrowngrp2/cbquinn/fox4/slurmlogs/SIFT_annotate.err
+
+# Full instructions here: https://sift.bii.a-star.edu.sg/sift4g/AnnotateVariants.html
 
 SIFT=/group/ctbrowngrp2/cbquinn/fox4/5_load/sift/SIFT4G_Annotator.jar
 DATABASE=/group/ctbrowngrp3/scratch/cbquinn/fox/siftdb/Vulpes_lagopus/GCF_018345385
@@ -83,4 +59,3 @@ bedtools intersect -header \
 bcftools view -O z -o ${i}.vcf.gz
 bcftools index ${i}.vcf.gz
 done
-```
