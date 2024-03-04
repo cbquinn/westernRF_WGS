@@ -1,7 +1,3 @@
-## Annotate vcf
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/run_snpeff.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=snpeff
 #SBATCH --time 24:00:00
