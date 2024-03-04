@@ -1,11 +1,9 @@
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/msmc2_boot_run.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=boot
 #SBATCH --array=1-20%3
 #SBATCH --nodes 1
 #SBATCH --ntasks 16
-#SBATCH --time 2-00:00:00
+#SBATCH --time 6-00:00:00
 #SBATCH --mem=80GB
 #SBATCH -p bml
 #SBATCH -A ctbrowngrp
@@ -38,5 +36,3 @@ msmc2 -t 16 -i 20 -p $p -I 4,5,6,7 -o ${OUTDIR}/$dir/boot/ORC_bootstrap_number_$
 msmc2 -t 16 -i 20 -p $p -I 8,9,10,11 -o ${OUTDIR}/$dir/boot/RM_bootstrap_number_${SLURM_ARRAY_TASK_ID}.out ${INDIR}/boot/bootstrap_number_${SLURM_ARRAY_TASK_ID}/*txt
 msmc2 -t 16 -i 20 -p $p -I 12,13,14,15 -o ${OUTDIR}/$dir/boot/WAC_bootstrap_number_${SLURM_ARRAY_TASK_ID}.out ${INDIR}/boot/bootstrap_number_${SLURM_ARRAY_TASK_ID}/*txt
 msmc2 -t 16 -i 20 -p $p -I 16,17,18,19 -o ${OUTDIR}/$dir/boot/EAST_bootstrap_number_${SLURM_ARRAY_TASK_ID}.out ${INDIR}/boot/bootstrap_number_${SLURM_ARRAY_TASK_ID}/*txt
-```
-20 hours each? / 3 task * 20 bootstraps* = 5.5 days
