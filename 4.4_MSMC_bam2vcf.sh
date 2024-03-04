@@ -1,24 +1,3 @@
-step1: create list for all indiv that need to be run (might as well include AK and RUS)
-step2: add map mask to the script below
-
-```
-LAS_F01 LAS     28
-LAS_F02 LAS     27
-ORC_S18-2071    ORC     20
-ORC_S17-2544    ORC     17
-RM_S13-2269     RM      51
-RM_S13-2260     RM      18
-WAC_S10-0511    WAC     25
-WAC_S11-0716    WAC     17
-ECAN_S14-0358   EAST    17
-VT_F12-232      EAST    14
-```
-
-### prepare input data
-
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/MSMC_vcf.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=msmc
 #SBATCH --array=1-10
@@ -35,6 +14,9 @@ STARTTIME=$(date +%s)
 set –o pipefail
 set –o errexit
 set –o nounset
+
+# uses tab delimited list with 3 columns: sampleID, popID, meandepth:
+# LAS_F01 LAS     28
 
 LIST=/group/ctbrowngrp2/cbquinn/fox4/4_SMC/MSMC2/msmc.bamlist
 SAMPLE=$(sed "${SLURM_ARRAY_TASK_ID}q;d" $LIST | cut -f1)
@@ -68,4 +50,3 @@ bcftools call -c -V indels | \
 gzip -c > ${SAMPLE}_${CHR}_msmc.vcf.gz
 
 done
-```
