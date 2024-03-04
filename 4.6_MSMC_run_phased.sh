@@ -1,26 +1,8 @@
-
-```
-LAS_F01
-LAS_F02
-ORC_S18-2071
-ORC_S17-2544
-RM_S13-2269
-RM_S13-2260
-WAC_S10-0511
-WAC_S11-0716
-ECAN_S14-0358
-VT_F12-232
-```
-
-"The `-s` flag tells MSMC to skip sites with ambiguous phasing. As a rule of thumb: For population size estimates, we have found that unphased sites are not so much of a problem, but for cross-population analysis we typically remove those." -- https://github.com/stschiff/msmc-tools/blob/master/msmc-tutorial/guide.md
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/msmc2_run_phased.sh
-```sh
 #!/bin/bash -l
 #SBATCH --job-name=MSMC
 #SBATCH --ntasks=1 
 #SBATCH --cpus-per-task=16
-#SBATCH --time 2-00:00:00
+#SBATCH --time 3-00:00:00
 #SBATCH --mem=60GB
 #SBATCH -p bmm
 #SBATCH -A ctbrowngrp
@@ -41,13 +23,13 @@ conda activate msmc2
 # get list of chr files
 INPUTS=$(find $INDIR/all10_*_msmc.txt | paste -sd " ")
 
+# 64 time segments with 34 free parameters
 p="10*1+22*2+1*4+1*6"
-# old: p="1*10+22*2+4*1+6*1"
-
 dir="t20_10x1_22x2_1x4_1x6"
 
+# "The `-s` flag tells MSMC to skip sites with ambiguous phasing. As a rule of thumb: For population size estimates, we have found that unphased sites are not so much of a problem, but for cross-population analysis we typically remove those." -- https://github.com/stschiff/msmc-tools/blob/master/msmc-tutorial/guide.md
+
 # estimate Ne
-# 64 time segments with 34 free parameters
 mkdir -p $OUTDIR/$dir
 msmc2 -t 16 -i 20 -p $p -I 0,1,2,3 -o ${OUTDIR}/$dir/LAS_msmc.out $INPUTS
 msmc2 -t 16 -i 20 -p $p -I 4,5,6,7 -o ${OUTDIR}/$dir/ORC_msmc.out $INPUTS
@@ -59,7 +41,3 @@ msmc2 -t 16 -i 20 -p $p -I 16,17,18,19 -o ${OUTDIR}/$dir/EAST_msmc.out $INPUTS
 # Print out final statistics about resource use before job exits
 scontrol show job ${SLURM_JOB_ID}
 sstat --format 'JobID,MaxRSS,AveCPU' -P ${SLURM_JOB_ID}.batch
-
-```
-took 51 GB and ~ 24 hours
-
