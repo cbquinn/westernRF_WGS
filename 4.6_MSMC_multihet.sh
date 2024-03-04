@@ -1,20 +1,4 @@
 
-```
-LAS_F01
-LAS_F02
-ORC_S18-2071
-ORC_S17-2544
-RM_S13-2269
-RM_S13-2260
-WAC_S10-0511
-WAC_S11-0716
-ECAN_S14-0358
-VT_F12-232
-```
-
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/msmc2_multihet_phased.sh
-```shell
 #!/bin/bash -l
 #SBATCH --job-name=multihet
 #SBATCH --nodes 1
@@ -57,6 +41,3 @@ phased/WAC_S11-0716_${CHR}_phased_final.vcf.gz \
 phased/ECAN_S14-0358_${CHR}_phased_final.vcf.gz \
 phased/VT_F12-232_${CHR}_phased_final.vcf.gz \
 > phased/all10_${CHR}_msmc.txt
-
-
-```
