@@ -1,7 +1,3 @@
-[[KING]]
-
-/group/ctbrowngrp2/cbquinn/fox4/slurmscripts/plink_KING.sh
-```
 #!/bin/bash -l
 #SBATCH --job-name=king
 #SBATCH --time 08:00:00
@@ -36,18 +32,4 @@ plink2 --bfile $INDIR/$OUT \
     --chr-set 24 \
 	--make-king 'square' --out KING/${OUT}
 done
-```
 
-Figure out which individuals to remove...
-Save to list...
-
-0.25-(0.25-0.125)/2 = 0.1875 --> used this as cutoff for 1st order relationship.. (halfway between 0.25 and 0.125)
-
-3 individuals to remove:
-/group/ctbrowngrp2/cbquinn/fox4/1_vcfs/variant/n34/KING/firstorder.remove
-
-```
-LAS_F03
-WAC_S10-0583
-WAC_S11-0716
-```
