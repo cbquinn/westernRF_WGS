@@ -7,9 +7,12 @@
 1  NANC$        unif     1000      100000      output
 1  N1ANC$       unif     10      NANC$      output paramInRange
 1  N2ANC$       unif     10      NANC$      output paramInRange
-1  TDIV$        unif     0  15000   output
+1  TMIG$        unif     0  5000   output
+1  TMET$        unif     0  10000   output
 0  M12$        logunif  0.00001   0.1     output
 0  M21$        logunif  0.00001   0.1     output
 
 [COMPLEX PARAMETERS] 
 0  RESIZEA$ = NANC$/N1ANC$     hide
+0  TDIV$ = TMIG$+TMET$     hide
+
