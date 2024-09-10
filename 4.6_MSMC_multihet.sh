@@ -30,6 +30,9 @@ cd $INDIR
 --mask=WAC_S11-0716_${CHR}_DEPTHmask.bed.gz \
 --mask=ECAN_S14-0358_${CHR}_DEPTHmask.bed.gz \
 --mask=VT_F12-232_${CHR}_DEPTHmask.bed.gz \
+--mask=RUS_S12-0237_${CHR}_DEPTHmask.bed.gz \
+--mask=AK_S12-1159_${CHR}_DEPTHmask.bed.gz \
+--mask=SN_S11-0008_${CHR}_DEPTHmask.bed.gz \
 phased/LAS_F01_${CHR}_phased_final.vcf.gz \
 phased/LAS_F02_${CHR}_phased_final.vcf.gz \
 phased/ORC_S18-2071_${CHR}_phased_final.vcf.gz \
@@ -40,4 +43,7 @@ phased/WAC_S10-0511_${CHR}_phased_final.vcf.gz \
 phased/WAC_S11-0716_${CHR}_phased_final.vcf.gz \
 phased/ECAN_S14-0358_${CHR}_phased_final.vcf.gz \
 phased/VT_F12-232_${CHR}_phased_final.vcf.gz \
-> phased/all10_${CHR}_msmc.txt
+phased/RUS_S12-0237_${CHR}_phased_final.vcf.gz \
+phased/AK_S12-1159_${CHR}_phased_final.vcf.gz \
+phased/SN_S11-0008_${CHR}_phased_final.vcf.gz \
+> phased/all13_${CHR}_msmc.txt
