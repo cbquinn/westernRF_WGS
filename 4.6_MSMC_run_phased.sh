@@ -36,7 +36,10 @@ msmc2 -t 16 -i 20 -p $p -I 4,5,6,7 -o ${OUTDIR}/$dir/ORC_msmc.out $INPUTS
 msmc2 -t 16 -i 20 -p $p -I 8,9,10,11 -o ${OUTDIR}/$dir/RM_msmc.out $INPUTS
 msmc2 -t 16 -i 20 -p $p -I 12,13,14,15 -o ${OUTDIR}/$dir/WAC_msmc.out $INPUTS
 msmc2 -t 16 -i 20 -p $p -I 16,17,18,19 -o ${OUTDIR}/$dir/EAST_msmc.out $INPUTS
-
+msmc2 -t 16 -i 20 -p $p -I 20,21 -o ${OUTDIR}/$dir/RUS_msmc.out $INPUTS
+msmc2 -t 16 -i 20 -p $p -I 22,23 -o ${OUTDIR}/$dir/AK_msmc.out $INPUTS
+msmc2 -t 16 -i 20 -p $p -I 24,25 -o ${OUTDIR}/$dir/SN_msmc.out $INPUTS
+msmc2 -t 16 -i 20 -p $p -I 16,17 -o ${OUTDIR}/$dir/ECAN_S14-0358_msmc.out $INPUTS
 
 # Print out final statistics about resource use before job exits
 scontrol show job ${SLURM_JOB_ID}
