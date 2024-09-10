@@ -1,0 +1,32 @@
+// Priors and rules file
+// *********************
+
+[PARAMETERS]
+//#isInt? #name   #dist.#min  #max
+//all Ns are in number of haploid individuals
+1  N3BOT$       unif     20      60      output
+1  N2BOT$       unif     350      650      output
+1  N1BOT$       unif     1250      2600      output
+1  N3ANC$       unif     N3BOT$      10000      output paramInRange
+1  N2ANC$       unif     N2BOT$      10000      output paramInRange
+1  N1ANC$       unif     N1BOT$      10000      output paramInRange
+1  NANCsn$        unif     N2ANC$      50000      output paramInRange
+1  NANCrm$        unif     N1ANC$      50000      output paramInRange
+1  NANC$        unif     N1ANC$      150000      output paramInRange
+1  TDIV.orclas$        unif     30  5000   output
+1  TDIV.rmsn$        unif     TDIV.orclas$  5000   output   paramInRange
+1  TISO.las$        unif     0  TDIV.orclas$   output   paramInRange
+1  TISO.rm$        unif     TDIV.orclas$  TDIV.rmsn$   output    paramInRange 
+0  Mrmorc$        logunif  0.000001   0.1     output
+0  Morcrm$        logunif  0.000001   0.1     output
+0  Mlasorc$        logunif  0.000001   0.1     output
+0  Morclas$        logunif  0.000001   0.1     output
+
+
+[COMPLEX PARAMETERS]
+0  RESIZEA$ = NANC$/N1ANC$     hide
+0  RESIZEB$ = NANCsn$/N2ANC$     hide
+0  RESIZEC$ = NANCrm$/N2ANC$     hide
+0  RESIZE1$ = N1ANC$/N1BOT$     hide
+0  RESIZE2$ = N2ANC$/N2BOT$     hide
+0  RESIZE3$ = N3ANC$/N3BOT$     hide
