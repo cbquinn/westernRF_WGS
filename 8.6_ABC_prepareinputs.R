@@ -1,9 +1,12 @@
+
+#library(abc)
 library(tidyverse)
+
 
 # remove singletons  (sim)
 # convert to folded (sim and observed)
 # convert from number to proportion (sim and observed)
-# save as R objects
+
 
 setwd("/group/ctbrowngrp4/2024-cbquinn-redfoxWGS/abc/20240625/analysis/")
 
@@ -34,9 +37,9 @@ load("par.sim.RData")
 ##### 12, 12 SFS (RM - ORC) #####
 #################################
 
-models.index.RMORC <- models.index.param[models.index.param$pop=="RMORC",]
-sfs.sim.RMORC <- sfs.sim[models.index.param$pop=="RMORC",]
-par.sim.RMORC <- par.sim[models.index.param$pop=="RMORC",]
+models.index.RMORC <- models.index.param[models.index.param$pop=="RMORC2",]
+sfs.sim.RMORC <- sfs.sim[models.index.param$pop=="RMORC2",]
+par.sim.RMORC <- par.sim[models.index.param$pop=="RMORC2",]
 
 # check
 nrow(par.sim.RMORC) == nrow(sfs.sim.RMORC)
@@ -98,9 +101,9 @@ sfs.obs.RMORC.frac <- sfs.obs.RMORC/sum(sfs.obs.RMORC)
 ##### 12, 10 SFS (ORCLAS & RMLAS) #####
 #######################################
 
-models.index.LAS <- models.index.param[models.index.param$pop!="RMORC",]
-sfs.sim.LAS <- sfs.sim[models.index.param$pop!="RMORC",]
-par.sim.LAS <- par.sim[models.index.param$pop!="RMORC",]
+models.index.LAS <- models.index.param[models.index.param$pop=="RMLAS2",]
+sfs.sim.LAS <- sfs.sim[models.index.param$pop=="RMLAS2",]
+par.sim.LAS <- par.sim[models.index.param$pop=="RMLAS2",]
 
 # remove extra columns in sfs.sim
 sfs.sim.LAS <- sfs.sim.LAS %>%
@@ -177,13 +180,19 @@ sfs.obs.ORCLAS.frac <- sfs.ORCLAS/sum(sfs.ORCLAS)
 # save all objects
 setwd("/group/ctbrowngrp4/2024-cbquinn-redfoxWGS/abc/20240625/analysis/")
 
-save(sfs.obs.RMLAS.frac, file="sfs.obs.RMLAS.frac.RData")
-save(sfs.obs.RMORC.frac, file = "sfs.obs.RMORC.frac.RData")
-save(sfs.obs.ORCLAS.frac, file = "sfs.obs.ORCLAS.frac.RData")
+sfs.sim.RMLAS2.frac <- sfs.sim.LAS.frac
+sfs.sim.RMORC2.frac <- sfs.sim.RMORC.frac
+models.index.RMORC2 <- models.index.RMORC
+models.index.RMLAS2 <- models.index.LAS
+par.sim.RMORC2 <- par.sim.RMORC
+par.sim.RMLAS2 <- par.sim.LAS
 
-save(sfs.sim.LAS.frac, file = "sfs.sim.LAS.frac.RData")
-save(sfs.sim.RMORC.frac, file = "sfs.sim.RMORC.frac.RData")
+save(sfs.sim.RMLAS2.frac, file = "sfs.sim.RMLAS2.frac.RData")
+save(sfs.sim.RMORC2.frac, file = "sfs.sim.RMORC2.frac.RData")
 
 
-save(models.index.RMORC, file="models.index.RMORC.RData")
-save(models.index.LAS, file="models.index.LAS.RData")
+save(models.index.RMORC2, file="models.index.RMORC2.RData")
+save(models.index.RMLAS2, file="models.index.RMLAS2.RData")
+
+save(par.sim.RMORC2, file="par.sim.RMORC2.RData")
+save(par.sim.RMLAS2, file="par.sim.RMLAS2.RData")
